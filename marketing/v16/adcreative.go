@@ -241,7 +241,8 @@ type AdCreative struct {
 	// A JSON object defining crop dimensions for the image specified. See image crop reference for more details
 	ImageCrops json.RawMessage `json:"image_crops,omitempty"`
 	// The page id and the content to create a new unpublished page post specified using one of link_data, photo_data, video_data, text_data or template_data
-	ObjectStorySpec *ObjectStorySpec `json:"object_story_spec,omitempty"`
+	ObjectStorySpec      *ObjectStorySpec      `json:"object_story_spec,omitempty"`
+	DegreesOfFreedomSpec *DegreesOfFreedomSpec `json:"degrees_of_freedom_spec,omitempty"`
 	// Use this field to customize the media for different Facebook placements.
 	// Currently you can use this field for customizing images only. The media
 	// specified here replaces the original media defined in the ad creative when
@@ -276,6 +277,19 @@ func (ac AdCreative) GetLandingPageURL() string {
 	}
 
 	return ""
+}
+
+// From v18
+type StandardEnhancements struct {
+	EnrollStatus string `json:"enroll_status,omitempty"`
+}
+
+type CreativeFeaturesSpec struct {
+	StandardEnhancements *StandardEnhancements `json:"standard_enhancements,omitempty"`
+}
+
+type DegreesOfFreedomSpec struct {
+	CreativeFeaturesSpec *CreativeFeaturesSpec `json:"creative_features_spec,omitempty"`
 }
 
 // ObjectStorySpec contains the media of a creative.
